@@ -4,17 +4,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const routes = require('./routes/index.js')
 
 const app = express()
 const PORT = process.env.PORT || 7000;
 
-// Middlewares :- app.use(MiddleWare_Name)
-app.use(bodyParser.json())
-app.use(cookieParser())
-app.use(cors())
-
-
-//COMMENT : MongoDb Connection
+// MongoDb Connection
 mongoose
     .connect(process.env.DATABASE, {
         useNewUrlParser: true,
@@ -25,6 +20,15 @@ mongoose
     .catch((err) => console.log(err))
 //NOTE : Connecting Functions :  
 
+// Middlewares :- app.use(MiddleWare_Name)
+app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(cors())
+
+// Routing
+app.use('/api/v1', routes)
+
+//Server Creation
 app.listen(PORT, (req, res) => {
     console.log(` Server started at port ${PORT}`);
 })
