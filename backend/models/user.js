@@ -47,7 +47,7 @@ let userSchema = new mongoose.Schema({
 
 userSchema.virtual('password')
     .set(function (password) {
-        this._password = password   //COMMENT : to make password as private, we can use "_"before the variable
+        this._password = password   // NOTE : to make password as private, we can use "_"before the variable
         this.salt = uuidv1()
         this.encry_password = this.securePassword(password)
     })
@@ -55,15 +55,13 @@ userSchema.virtual('password')
         return this._password
     })
 
-//**************************************************/
-// COMMENT custom methods for a schema
-
-userSchema.method = {
+// custom methods for a schema
+userSchema.methods = {
     authinticate: function (plainPassword) {
         return this.securePassword(plainPassword) === this.encry_password
     },
     securePassword: function (plainPassword) {
-        if (!password) return ""
+        if (!plainPassword) return ""
         try {
             return crypto.createHmac('sha256', secret)
                 .update('plainPassword')

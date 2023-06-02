@@ -4,7 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const routes = require('./routes/index.js')
+const routes = require('../backend/routes/auth')
 
 const app = express()
 const PORT = process.env.PORT || 7000;
@@ -18,7 +18,6 @@ mongoose
     })
     .then(() => console.log(' -- DB CONNECTED -- '))
     .catch((err) => console.log(err))
-//NOTE : Connecting Functions :  
 
 // Middlewares :- app.use(MiddleWare_Name)
 app.use(bodyParser.json())
